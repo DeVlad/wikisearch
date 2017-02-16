@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+#search {
+    text-align: center;
+}
+
+.result {
+    margin: 5px;
+    border: 2px solid black;
+}
+
+.result:hover {
+    background-color: beige;
+}
