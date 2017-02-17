@@ -1,4 +1,5 @@
 // TODO: Sort serp by index
+// IDEA: Placeholder grid for results instead of sorting by id
 $("#search").submit(function (event) {
     // TODO - sanitaze input - but it's kind of useless because is running on the client side
     if ($("input:first").val() !== "") {
@@ -22,7 +23,8 @@ function wikiRequest() {
             //console.log(response);
             if (response.hasOwnProperty('query')) {
                 // Simple Data View         
-                $("#serp").empty(); // clear old serp results
+                //$("#serp").empty(); // clear old serp results
+                $(".result").empty(); // clear old serp results
                 result = response.query.pages;
                 for (var prop in result) {
                     var item = result[prop];
@@ -30,20 +32,23 @@ function wikiRequest() {
                     // console.log("Content:", item.extract);
                     // console.log("PageID:", item.pageid);
                     //$("#serp").append().append("<br>").append(item.extract).append("<br><hr>");
-                    $("#serp").append(renderResult(item.title, item.extract, item.pageid));
+                    //id = '"#' + item.index + '"';
+                    //console.log(item.index);
+                    $("#" + item.index).empty().append(renderResult(item.title, item.extract, item.pageid, item.index));
                 }
             }
             else {
                 $("#serp").empty();
-                $("#serp").append("No results found");
+                $("#1").append("No results found");
             }
         }
     });
 }
-// Render View
+// Render View  + pageid + "'
 function renderResult(title, extract, pageid, index) {
     // Display in clickable div blocks    
-    return '<div class="result" onclick="openUrl(' + pageid + ')">' + title + '</h3>' + '<br>' + extract + '</.div>';
+    // return '<div class="result" onclick="openUrl(' + pageid + ')">' + title + '</h3>' + '<br>' + extract + '</.div>';
+    return '<div class="result" id="' + index + '" onclick="openUrl(' + pageid + ')">' + title + '</h3>' + '<br>' + extract + '</.div>';
 }
 // Article open on new tab
 function openUrl(pageid) {
