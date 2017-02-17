@@ -24,7 +24,7 @@ function wikiRequest() {
             if (response.hasOwnProperty('query')) {
                 // Simple Data View         
                 //$("#serp").empty(); // clear old serp results
-                $(".result").empty(); // clear old serp results
+                // $(".result").empty(); // clear old serp results
                 result = response.query.pages;
                 for (var prop in result) {
                     var item = result[prop];
@@ -34,12 +34,15 @@ function wikiRequest() {
                     //$("#serp").append().append("<br>").append(item.extract).append("<br><hr>");
                     //id = '"#' + item.index + '"';
                     //console.log(item.index);
-                    $("#" + item.index).empty().append(renderResult(item.title, item.extract, item.pageid, item.index));
+                    $("#result" + item.index).empty().append(renderResult(item.title, item.extract, item.pageid, item.index));
                 }
             }
             else {
-                $("#serp").empty();
-                $("#1").append("No results found");
+                // $(".result").empty();
+                // $("#serp").append("No results found");
+                // Empty each id starting with "result"
+                $('div[id^="result"]').empty();
+                $("span").text("No results found").show().fadeOut(5000);
             }
         }
     });
