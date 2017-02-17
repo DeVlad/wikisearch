@@ -1,7 +1,6 @@
-// TODO: Sort serp by index
-// IDEA: Placeholder grid for results instead of sorting by id
+// TODO: style and autocomplete
 $("#search").submit(function (event) {
-    // TODO - sanitaze input - but it's kind of useless because is running on the client side
+    // TODO: - sanitaze input - but it's kind of useless because is running on the client side
     if ($("input:first").val() !== "") {
         searched = $("input:first").val();
         wikiRequest();
@@ -47,11 +46,11 @@ function wikiRequest() {
         }
     });
 }
-// Render View  + pageid + "'
+// Render View
 function renderResult(title, extract, pageid, index) {
     // Display in clickable div blocks    
     // return '<div class="result" onclick="openUrl(' + pageid + ')">' + title + '</h3>' + '<br>' + extract + '</.div>';
-    return '<div class="result" id="' + index + '" onclick="openUrl(' + pageid + ')">' + title + '</h3>' + '<br>' + extract + '</.div>';
+    return '<div class="result" id="' + index + '" onclick="openUrl(' + pageid + ')">' + '<h3>' + title + '</h3>' + '<br>' + extract + '</.div>';
 }
 // Article open on new tab
 function openUrl(pageid) {
