@@ -92,14 +92,15 @@ module.exports = function (grunt) {
                         cwd: 'src/img',
                         src: ['**'],
                         dest: 'build/img/'
-                    },
-
+                    }
+        /*
                     {
                         expand: true,
                         cwd: 'src/',
                         src: ['favicon.ico'],
                         dest: 'build/'
                     }
+        */
 
 
       // includes files within path and its sub-directories 
@@ -132,7 +133,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-gh-pages');
     // Deploy to Github pages
     grunt.registerTask('deploy', ['gh-pages']);
-    // Default tasks
-    //grunt.registerTask('default', ['auto_install', 'validation', 'uglify', 'postcss', 'processhtml', 'htmlmin', 'copy']);
-    grunt.registerTask('default', ['auto_install', 'validation', 'uglify', 'postcss', 'processhtml', 'htmlmin']);
+    // Default tasks    
+    grunt.registerTask('default', ['auto_install', 'validation', 'uglify', 'postcss', 'processhtml', 'htmlmin', 'copy']);
 };
