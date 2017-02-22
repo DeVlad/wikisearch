@@ -1,4 +1,4 @@
-// TODO: style and autocomplete
+// TODO: autocomplete
 $("#search").submit(function (event) {
     // TODO: - sanitaze input - but it's kind of useless because is running on the client side
     if ($("input:first").val() !== "") {
