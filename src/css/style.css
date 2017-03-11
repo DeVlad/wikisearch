@@ -64,6 +64,7 @@ h3 {
 
 #random:hover {
     border: 1px solid #ff1d1d;
+    border-radius: 4px;
 }
 
 .result {

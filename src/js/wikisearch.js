@@ -19,26 +19,14 @@ function wikiRequest() {
             console.log("error");
         },
         success: function (response) {
-            //console.log(response);
             if (response.hasOwnProperty('query')) {
-                // Simple Data View         
-                //$("#serp").empty(); // clear old serp results
-                // $(".result").empty(); // clear old serp results
                 result = response.query.pages;
                 for (var prop in result) {
                     var item = result[prop];
-                    //console.log("Item:", item);
-                    // console.log("Content:", item.extract);
-                    // console.log("PageID:", item.pageid);
-                    //$("#serp").append().append("<br>").append(item.extract).append("<br><hr>");
-                    //id = '"#' + item.index + '"';
-                    //console.log(item.index);
                     $("#result" + item.index).empty().append(renderResult(item.title, item.extract, item.pageid, item.index));
                 }
             }
             else {
-                // $(".result").empty();
-                // $("#serp").append("No results found");
                 // Empty each id starting with "result"
                 $('div[id^="result"]').empty();
                 $("span").text("No results found").show().fadeOut(5000);
@@ -49,7 +37,6 @@ function wikiRequest() {
 // Render View
 function renderResult(title, extract, pageid, index) {
     // Display in clickable div blocks    
-    // return '<div class="result" onclick="openUrl(' + pageid + ')">' + title + '</h3>' + '<br>' + extract + '</.div>';
     return '<div class="result" id="' + index + '" onclick="openUrl(' + pageid + ')">' + '<h3>' + title + '</h3>' + '<br>' + extract + '</.div>';
 }
 // Article open on new tab
@@ -58,6 +45,5 @@ function openUrl(pageid) {
 }
 //Random Article
 $("#random").click(function () {
-    // window.location.href = "";
     window.open('https://wikipedia.org/wiki/Special:Random', '_blank');
 });
