@@ -1,4 +1,30 @@
-// TODO: autocomplete
+// TODO: fetch most current trends
+// Autocomplete
+var trendsUrl = "https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/2017/03/10";
+var promiseGetTrends = new Promise(function (resolve, reject) {
+    //resolve(fetch(trendsUrl).then(response => response.json()).then(json => json));
+    resolve(fetch(trendsUrl).then(function (response) {
+                return response.json();
+    }));
+    reject(Error("Error: fetch channel from API failed"));
+});
+promiseGetTrends.then(function (data) {
+    var object = data.items[0].articles;
+    var tags = $.map(object, function (value, index) {
+        output = value.article;
+        filtered = output.replace(/\(|\)|_/g, ' ');
+        return [filtered];
+    });
+    return tags;
+}).then(function (tags) {
+    $(function () {
+        $("#search-box").autocomplete({
+            minLength: 3,
+            source: tags
+        });
+    });
+});
+// Search trigger
 $("#search").submit(function (event) {
     // TODO: - sanitaze input - but it's kind of useless because is running on the client side
     if ($("input:first").val() !== "") {
