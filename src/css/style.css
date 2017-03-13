@@ -80,3 +80,7 @@ h3 {
 .result:hover {
     border-top-color: #F55;
 }
+
+.thumbnail {
+    padding: 2px 0px 0px 20px;
+}

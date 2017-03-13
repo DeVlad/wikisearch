@@ -1,10 +1,9 @@
 // TODO: fetch most current trends
-// Autocomplete
 var trendsUrl = "https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/2017/03/10";
 var promiseGetTrends = new Promise(function (resolve, reject) {
     //resolve(fetch(trendsUrl).then(response => response.json()).then(json => json));
     resolve(fetch(trendsUrl).then(function (response) {
-                return response.json();
+        return response.json();
     }));
     reject(Error("Error: fetch channel from API failed"));
 });
@@ -49,7 +48,11 @@ function wikiRequest() {
                 result = response.query.pages;
                 for (var prop in result) {
                     var item = result[prop];
-                    $("#result" + item.index).empty().append(renderResult(item.title, item.extract, item.pageid, item.index));
+                    var thumbnail = "";
+                    if (item.hasOwnProperty("thumbnail")) {                        
+                        thumbnail = item.thumbnail.source;
+                    }
+                    $("#result" + item.index).empty().append(renderResult(item.title, item.extract, item.pageid, item.index, thumbnail));
                 }
             }
             else {
@@ -61,9 +64,14 @@ function wikiRequest() {
     });
 }
 // Render View
-function renderResult(title, extract, pageid, index) {
-    // Display in clickable div blocks    
-    return '<div class="result" id="' + index + '" onclick="openUrl(' + pageid + ')">' + '<h3>' + title + '</h3>' + '<br>' + extract + '</.div>';
+function renderResult(title, extract, pageid, index, thumbnail) {
+    // Display in clickable div blocks
+    if (thumbnail == "") {
+        return '<div class="result" id="' + index + '" onclick="openUrl(' + pageid + ')">' + '<h3>' + title + '</h3>' + '<br>' + extract + '</.div>';
+    }
+    else {
+        return '<div class="result" id="' + index + '" onclick="openUrl(' + pageid + ')">' + '<h3>' + title + '</h3>' + '<img class="thumbnail" src="' + thumbnail + '">' + '<br>' + extract + '</.div>';
+    }
 }
 // Article open on new tab
 function openUrl(pageid) {
