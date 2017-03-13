@@ -25,9 +25,10 @@ promiseGetTrends.then(function (data) {
 });
 // Search trigger
 $("#search").submit(function (event) {
-    // TODO: - sanitaze input - but it's kind of useless because is running on the client side
+    // Sanitaze input - but it's kind of useless because is running on the client side
     if ($("input:first").val() !== "") {
         searched = $("input:first").val();
+        searched = searched.replace(/[^a-z0-9 ]/gi, "").trim();        
         wikiRequest();
     }
     else {
@@ -49,7 +50,7 @@ function wikiRequest() {
                 for (var prop in result) {
                     var item = result[prop];
                     var thumbnail = "";
-                    if (item.hasOwnProperty("thumbnail")) {                        
+                    if (item.hasOwnProperty("thumbnail")) {
                         thumbnail = item.thumbnail.source;
                     }
                     $("#result" + item.index).empty().append(renderResult(item.title, item.extract, item.pageid, item.index, thumbnail));
