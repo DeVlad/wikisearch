@@ -1,5 +1,9 @@
-// TODO: fetch most current trends
-var trendsUrl = "https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/2017/03/10";
+// TODO: Most current trends error handling 
+var date = new Date();
+// Trends 2 days back
+date.setDate(date.getDate() - 2);
+date = date.toISOString().slice(0, 10).replace(/-/g, "/");
+var trendsUrl = "https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/" + date;
 var promiseGetTrends = new Promise(function (resolve, reject) {
     //resolve(fetch(trendsUrl).then(response => response.json()).then(json => json));
     resolve(fetch(trendsUrl).then(function (response) {
@@ -28,7 +32,7 @@ $("#search").submit(function (event) {
     // Sanitaze input - but it's kind of useless because is running on the client side
     if ($("input:first").val() !== "") {
         searched = $("input:first").val();
-        searched = searched.replace(/[^a-z0-9 ]/gi, "").trim();        
+        searched = searched.replace(/[^a-z0-9 ]/gi, "").trim();
         wikiRequest();
     }
     else {
